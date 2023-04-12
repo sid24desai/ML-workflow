@@ -34,6 +34,7 @@ jobs:
         uses: azure/CLI@v1
         with:
           inlineScript: |
+            az extension add --name azure-cli-ml
             az ml workspace create \
               --display-name ${{ env.WORKSPACE_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP }} \
