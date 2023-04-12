@@ -6,7 +6,7 @@ on:
 env:
   # Update the Azure region and resource group name as per your requirements
   REGION: "westus2"
-  RESOURCE_GROUP: "siliconrg4321"
+  RESOURCE_GROUP: "siliconrg4321321"
   WORKSPACE_NAME: "siliconml54321"
 
 jobs:
@@ -35,7 +35,7 @@ jobs:
         with:
           inlineScript: |
             az ml workspace create \
-              --workspace-name ${{ env.WORKSPACE_NAME }} \
+              --display-name ${{ env.WORKSPACE_NAME }} \
               --resource-group ${{ env.RESOURCE_GROUP }} \
               --location ${{ env.REGION }}
             echo "Azure ML workspace created successfully"
