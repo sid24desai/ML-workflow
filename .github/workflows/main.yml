@@ -1,0 +1,41 @@
+name: Create Azure ML Workspace
+
+on:
+  workflow_dispatch:
+
+env:
+  # Update the Azure region and resource group name as per your requirements
+  REGION: "westus2"
+  RESOURCE_GROUP: "siliconrg4321"
+  WORKSPACE_NAME: "siliconml54321"
+
+jobs:
+  create-workspace:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Create the resource group
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az group create \
+              --name ${{ env.RESOURCE_GROUP }} \
+              --location ${{ env.REGION }}
+            echo "Resource group created successfully"
+
+      - name: Create the Azure ML Workspace
+        uses: azure/CLI@v1
+        with:
+          inlineScript: |
+            az ml workspace create \
+              --workspace-name ${{ env.WORKSPACE_NAME }} \
+              --resource-group ${{ env.RESOURCE_GROUP }} \
+              --location ${{ env.REGION }}
+            echo "Azure ML workspace created successfully"
